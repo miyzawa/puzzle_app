@@ -31,17 +31,38 @@ public class Shogi extends Application {
 
     HBox banHBox[] = new HBox[81];
     Image image[] = new Image[18];
-    int data[] = {0, 1, 2, 3, 16,
-                  4, 5, 6, 7, 16,
-                  8, 9, 10, 11, 16,
-                  12, 13, 14, 15, 16,
-                 };
+    int data[] = {-1, -1, -1, -1, 16,
+                  -1, -1, -1, -1, 16,
+                  -1, -1, -1, -1, 16,
+                  -1, -1, -1, -1, 16, };
+    // int data[] = {0, 1, 2, 3, 16,
+    //               4, 5, 6, 7, 16,
+    //               8, 9, 10, 11, 16,
+    //               12, 13, 14, 15, 16,
+    //              };
     int fromPos = 99;
     int toPos = 99;
     Label statusLabel = new Label("将棋");
 
     @Override
     public void start(Stage stage) {
+
+        data[0] = (int)(Math.random()*16);
+        for(int i=1; i<20; i++){
+          if(data[i] == -1){
+            for(int j=0; j<i; j++){
+              while(true){
+                  data[i] = (int)(Math.random()*16);
+                  if(data[j] != data[i]){
+                     break;
+                  }
+              }
+              if(data[i] != -1){
+                break;
+              }
+            }
+          }
+        }
 
         stage.setTitle("Shogi");
         stage.initStyle(StageStyle.UTILITY);
@@ -74,9 +95,6 @@ public class Shogi extends Application {
         for (int i = 0; i < 20; i++) {
             int imageNo = data[i];
              ImageView view = null;
-            if (imageNo == 16)
-                view = new ImageView(image[16]);
-            else
                 view = new ImageView(image[imageNo]);
             view.setFocusTraversable(true);
             banHBox[i].getChildren().add(view);
@@ -85,7 +103,7 @@ public class Shogi extends Application {
 
         root.setCenter(center);
         root.setBottom(statusLabel);
-        Scene scene = new Scene(root, 578, 598);
+        Scene scene = new Scene(root, 340, 300);
         stage.setScene(scene);
         stage.show();
     }
@@ -128,7 +146,7 @@ public class Shogi extends Application {
         });
     }
 
-    private void configureDrop(final HBox parent) {
+    public void configureDrop(final HBox parent) {
 
         // ドラッグオブジェクトがドロップするオブジェクトの上に
         // ある時のイベントハンドラを設定する
@@ -148,7 +166,7 @@ public class Shogi extends Application {
                 Dragboard dragboard = event.getDragboard();
                 if (dragboard.hasImage()) {
                     ImageView view = new ImageView(dragboard.getImage());
-                    int toType = 99;     //移動先の駒の種類
+                    int toType = 16;     //移動先の駒の種類
                     for (int i=0; i<20; i++){
                         if (parent.equals(banHBox[i])) {
                         	toPos = i;
@@ -163,7 +181,7 @@ public class Shogi extends Application {
                     data[toPos] = data[fromPos];
                     data[fromPos] = 99;
                     String str = String.format("(%d,%d) -> (%d,%d) %s [取った駒:%s]",
-                            fromPos % 9, fromPos / 9, toPos % 9, toPos / 9,
+                            fromPos % 5, fromPos / 5, toPos % 5, toPos / 5,
                             data2koma(fromType), data2koma(toType));
                     statusLabel.setText(str);
                     // ドラッグできるようにする、
