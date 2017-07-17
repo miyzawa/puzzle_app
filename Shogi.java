@@ -31,10 +31,10 @@ public class Shogi extends Application {
 
     HBox banHBox[] = new HBox[81];
     Image image[] = new Image[18];
-    int data[] = {16, 15, 14, 13, 10,
-                  99, 12, 99, 99, 99,
-                  17, 17, 17, 17, 17,
-                  99, 99, 99, 99, 99,
+    int data[] = {0, 1, 2, 3, 16,
+                  4, 5, 6, 7, 16,
+                  8, 9, 10, 11, 16,
+                  12, 13, 14, 15, 16,
                  };
     int fromPos = 99;
     int toPos = 99;
@@ -65,13 +65,11 @@ public class Shogi extends Application {
         }
 
         // ÉCÉÅÅ[ÉWÇì«Ç›çûÇﬁ
-        for (int i = 0; i < 18; i++) {
-            if (i>7 && i<10)
-            	image[i] = new Image(Paths.get( "koma99.png").toUri().toString());
-            else {
-                String fname = String.format("koma%d.png",  i);
+        for (int i = 0; i < 17; i++) {
+
+                String fname = String.format("image%d.png",  i);
                 image[i] = new Image(Paths.get( fname ).toUri().toString());
-            }
+
         }
 
         // è´ä˚î’Ç…ãÓÇï¿Ç◊ÇÈ
