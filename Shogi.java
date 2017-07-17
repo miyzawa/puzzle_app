@@ -31,16 +31,11 @@ public class Shogi extends Application {
 
     HBox banHBox[] = new HBox[81];
     Image image[] = new Image[18];
-    int data[] = {16, 15, 14, 13, 10, 13, 14, 15, 16,
-                  99, 12, 99, 99, 99, 99, 99, 11, 99,
-                  17, 17, 17, 17, 17, 17, 17, 17, 17,
-                  99, 99, 99, 99, 99, 99, 99, 99, 99,
-                  99, 99, 99, 99, 99, 99, 99, 99, 99,
-                  99, 99, 99, 99, 99, 99, 99, 99, 99,
-                   7,  7,  7,  7,  7,  7,  7,  7,  7,
-                  99,  1, 99, 99, 99, 99, 99,  2, 99,
-                   6,  5,  4,  3,  0,  3,  4,  5,  6
-    };
+    int data[] = {16, 15, 14, 13, 10,
+                  99, 12, 99, 99, 99,
+                  17, 17, 17, 17, 17,
+                  99, 99, 99, 99, 99,
+                 };
     int fromPos = 99;
     int toPos = 99;
     Label statusLabel = new Label("è´ä˚");
@@ -59,11 +54,11 @@ public class Shogi extends Application {
 
         GridPane center = new GridPane();
         center.setPadding(new Insets(5.0));
-        for (int i=0; i<81; i++) {
+        for (int i=0; i<20; i++) {
             banHBox[i] = new HBox();
             banHBox[i].setBorder(border);
-            int x = i % 9;
-            int y = i / 9;
+            int x = i % 5;
+            int y = i / 5;
             GridPane.setConstraints(banHBox[i], x, y);
             center.getChildren().add(banHBox[i]);
             configureDrop(banHBox[i]);
@@ -80,7 +75,7 @@ public class Shogi extends Application {
         }
 
         // è´ä˚î’Ç…ãÓÇï¿Ç◊ÇÈ
-        for (int i = 0; i < 81; i++) {
+        for (int i = 0; i < 20; i++) {
             int imageNo = data[i];
              ImageView view = null;
             if (imageNo == 99)
@@ -157,7 +152,7 @@ public class Shogi extends Application {
                 if (dragboard.hasImage()) {
                     ImageView view = new ImageView(dragboard.getImage());
                     int toType = 99;     //à⁄ìÆêÊÇÃãÓÇÃéÌóﬁ
-                    for (int i=0; i<81; i++){
+                    for (int i=0; i<20; i++){
                         if (parent.equals(banHBox[i])) {
                         	toPos = i;
                         	toType = data[toPos];
