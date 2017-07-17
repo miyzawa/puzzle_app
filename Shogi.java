@@ -66,18 +66,16 @@ public class Shogi extends Application {
 
         // イメージを読み込む
         for (int i = 0; i < 17; i++) {
-
-                String fname = String.format("image%d.png",  i);
-                image[i] = new Image(Paths.get( fname ).toUri().toString());
-
+            String fname = String.format("image%d.png",  i);
+            image[i] = new Image(Paths.get( fname ).toUri().toString());
         }
 
         // 将棋盤に駒を並べる
         for (int i = 0; i < 20; i++) {
             int imageNo = data[i];
              ImageView view = null;
-            if (imageNo == 99)
-                view = new ImageView(image[8]);
+            if (imageNo == 16)
+                view = new ImageView(image[16]);
             else
                 view = new ImageView(image[imageNo]);
             view.setFocusTraversable(true);
@@ -106,7 +104,7 @@ public class Shogi extends Application {
                 content.putImage(view.getImage());
                 dragboard.setContent(content);
                 HBox parent = (HBox) view.getParent();
-                for (int i=0; i<81; i++){
+                for (int i=0; i<20; i++){
                     if (parent.equals(banHBox[i])) {
                     	fromPos = i;
                         break;
@@ -123,7 +121,8 @@ public class Shogi extends Application {
                 if (parent != null) {
                     // 表示を更新する
                     parent.getChildren().clear();
-                    parent.getChildren().add(new ImageView(image[8]));
+                    //ドラックした後の元位置の画像読み込み
+                    parent.getChildren().add(new ImageView(image[16]));
                 }
             }
         });
